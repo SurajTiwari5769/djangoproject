@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="{% static "css/all.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/checkout.css" %}">
+    <style>
+        /* Custom styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            /* Light background color */
+            padding-top: 20px;
+        }
+
+        .card {
+            border-radius: 15px;
+            /* Rounded corners for cards */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* Shadow effect */
+        }
+
+        .card-header {
+            background-color: #007bff;
+            /* Header background color */
+            color: #fff;
+            /* Header text color */
+            border-bottom: none;
+            /* Remove bottom border */
+        }
+
+        .card-body {
+            padding: 20px;
+            /* Add padding */
+        }
+
+        .address-card {
+            cursor: pointer;
+            /* Pointer cursor for address cards */
+            transition: all 0.3s ease;
+            /* Smooth transition */
+        }
+
+        .address-card:hover {
+            transform: scale(1.02);
+            /* Scale up on hover */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            /* Shadow effect on hover */
+        }
+
+        .selected {
+            border: 2px solid #007bff !important;
+            /* Highlight selected address */
+        }
+
+        .payment-button {
+            background-color: #28a745;
+            /* Button background color */
+            border-color: #28a745;
+            /* Button border color */
+            color: #fff;
+            /* Button text color */
+            font-weight: bold;
+            /* Bold font weight */
+            transition: background-color 0.3s ease;
+            /* Smooth transition */
+        }
+
+        .payment-button:hover {
+            background-color: #218838;
+            /* Darker color on hover */
+            border-color: #1e7e34;
+            /* Darker border color on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <!-- Order Summary -->
+                <div class="container mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="text-center m-0">Order Summary</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-2">Total Price:</p>
+                                <p class="mb-2">{{total}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-2">Money Saved:</p>
+                                <p class="mb-2 text-success">{{money_saved}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-2">Delivery Charge:</p>
+                                <p class="mb-2">{{delhivery_charge}}</p>
+                            </div>
+                            <hr />
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-2">Total Price:</p>
+                                <p class="mb-2 fw-bold">{{final_price}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Mode Selection -->
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <div class="shadow bg-white p-3 mb-4">
+                                <div class="card-header">
+                                    <h4 class="text-center m-0 mb-3">Select Payment Mode</h4>
+                                </div>
+                                <div class="card shadow-0 border">
+                                    <div class="nav nav-pills nav-justified" id="v-pills-tab" role="tablist">
+                                        <button class="nav-link active fw-bold" id="cashOnDeliveryTab-tab"
+                                            data-bs-toggle="pill" data-bs-target="#cashOnDeliveryTab" type="button"
+                                            role="tab" aria-controls="cashOnDeliveryTab" aria-selected="true">Cash on
+                                            Delivery</button>
+
+                                        <button class="nav-link fw-bold" id="onlinePayment-tab" data-bs-toggle="pill"
+                                            data-bs-target="#onlinePayment" type="button" role="tab"
+                                            aria-controls="onlinePayment" aria-selected="false">Online Payment</button>
+                                    </div>
+                                    <div class="tab-content" id="v-pills-tabContent">
+                                        <div class="tab-pane fade show active" id="cashOnDeliveryTab" role="tabpanel"
+                                            aria-labelledby="cashOnDeliveryTab-tab">
+                                            <div class="card-body">
+                                                <h6 class="mb-3">Cash on Delivery Mode</h6>
+                                                <p>Pay for your order when it is delivered to your doorstep.</p>
+                                                <button type="button" class="btn btn-primary">Place Order (Cash on
+                                                    Delivery)</button>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="onlinePayment" role="tabpanel"
+                                            aria-labelledby="onlinePayment-tab">
+                                            <div class="card-body">
+                                                <h6 class="mb-3">Online Payment Mode</h6>
+                                                <p>Securely pay online using your credit/debit card or online banking.
+                                                </p>
+                                                <a href="#">
+                                                <button type="button" class="btn btn-warning">Pay Now (Online
+                                                    Payment)</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <!-- Available Addresses -->
+                <div class="container mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="text-center m-0">Available Addresses</h4>
+                        </div>
+                        <label>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form method="post" action="{% url 'buynowpayment' mobile.id %}">
+                                            {% csrf_token %}
+                                            {% for address in addresses %}
+                                            <div class="card">
+                                                    <input type="radio" name="buynow_selected_address" value="{{ address.id }}">
+                                                    <p><strong>Full Name:</strong> {{ address.fullname }}</p>
+                                                    <p><strong>Email:</strong> {{ address.email }}</p>
+                                                    <p><strong>Phone Number:</strong> {{ address.phone_number }}</p>
+                                                    <p><strong>Pin-code:</strong> {{ address.pincode }}</p>
+                                                    <p><strong>Address:</strong> {{ address.address }}</p>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        <input type="submit" class="btn btn-primary" value="Proceed to Payment">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/popper.js" %}"></script>
+    <script src="{% static "js/all.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Add click event listener to address cards
+            $(".address-card").click(function () {
+                // Remove 'selected' class from all address cards
+                $(".address-card").removeClass("selected");
+                // Add 'selected' class to the clicked address card
+                $(this).addClass("selected");
+            });
+        });
+    </script>
+</body>
+
+</html>

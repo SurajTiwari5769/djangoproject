@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/address.css' %}">
+</head>
+<body>
+    {% comment %} {% include "core/navbar.html" %} {% endcomment %}
+    <section class="py-5">
+        <div class="py-3 py-md-4 checkout">
+            <div class="container">
+                <h4 style= "padding-left: 180px" >Address</h4>
+                <hr style= "padding-left: 180px">
+
+                <div class="row">
+                    <div class="col-md-12" id="addedAddresses">
+                        {% for address in addresses %}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p><strong>Full Name:</strong> {{ address.fullname }}</p>
+                                <p><strong>Email:</strong> {{ address.email }}</p>
+                                <p><strong>Phone Number:</strong> {{ address.phone_number }}</p>
+                                <p><strong>Pin-code:</strong> {{ address.pincode }}</p>
+                                <p><strong>Address:</strong> {{ address.address }}</p>
+                                <form method="post" action="{% url 'delete_address' address.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="addAddressSidebar">
+            <button type="button" class="btn btn-primary" id="addAddressBtn">Add Address</button>
+            <div id="basicInfoForm" style="display: none;">
+                <h5 class="text-primary">Basic Information</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary mt-3">Save Address</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById("addAddressBtn").addEventListener("click", function () {
+            document.getElementById("basicInfoForm").style.display = "block";
+        });
+    </script>
+
+</body>
+</html>

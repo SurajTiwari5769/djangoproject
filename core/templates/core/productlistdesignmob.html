@@ -1,0 +1,51 @@
+{% load static %}
+<div class="py-3 py-md-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="{% url "productlisting" %}">
+                    <h4 class="mb-4">SmartPhones</h4>
+                </a>
+            </div>
+            <div class="col-md-12">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    {% for z in mobiles reversed %}
+                    {% if forloop.counter0 < 3 %}
+                    <div class="col mb-4">
+                        <div class="card h-100">
+                            <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                                data-mdb-ripple-color="light" style="position: relative;">
+                                <img src="{{z.mobile_image.url}}" class="card-img-top" alt="Smartphone"
+                                    style="object-fit: cover; height: auto;">
+                                <a href="#!">
+                                    <div class="mask">
+                                        <div class="d-flex justify-content-start align-items-end h-100"></div>
+                                    </div>
+                                    <div class="hover-overlay">
+                                        <div class="mask"
+                                            style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">{{z.name}}</h5>
+                                <div class="d-flex flex-row align-items-center mb-1">
+                                    <h6 class="mb-1 me-1">{{z.discounted_price}}</h6>
+                                    <span class="text-danger"><s>{{z.selling_price}}</s></span>
+                                </div>
+                                <p class="card-text">{{z.display}}, {{z.storage}}, Triple Camera Setup</p>
+                                <a href="#" class="btn btn-primary">Add To Cart</a>
+                                <a href="{% url "productview" z.id %}" class="btn btn-outline-secondary">View</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="text-center mt-4">
+                    <a href="{% url "productlisting" %}" class="btn btn-primary">View All Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

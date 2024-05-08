@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/all.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/order.css" %}">
+</head>
+
+<body>
+    <!-- Navbar -->
+    {% include "core/navbar.html" %}
+
+    <!-- Order Details Section -->
+    <section class="h-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-10 col-xl-8">
+                    <!-- Loop through each order -->
+                    {% for o in ord %}
+                    <div class="card" style="border-radius: 10px;">
+                        <div class="card-header px-4 py-5">
+                            <h5 class="text-muted mb-0">Thanks for your Order, {{ o.user.username }}!</h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
+                                <p class="small text-muted mb-0">Receipt Voucher : {{ o.id }}</p>
+                            </div>
+                            <div class="card shadow-0 border mb-4">
+                                <!-- Display order details -->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <!-- Display product image -->
+                                            <img src="{{ o.mobile.mobile_image.url }}" class="img-fluid" alt="Product Image">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!-- Display product name -->
+                                            <p class="text-muted mb-0">{{ o.mobile.name }}</p>
+                                            <!-- Display product details -->
+                                            <p class="text-muted mb-0 small">{{ o.mobile.display }}</p>
+                                            <p class="text-muted mb-0 small">{{ o.mobile.processor }}</p>
+                                            <p class="text-muted mb-0 small">{{ o.mobile.ram }}</p>
+                                            <p class="text-muted mb-0 small">{{ o.mobile.storage }}</p>
+                                            <p class="text-muted mb-0 small">{{ o.mobile.camera }}</p>
+                                            <p class="text-muted mb-0 small">{{ o.mobile.battery }}</p>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <!-- Display quantity -->
+                                            <p class="text-muted mb-0 small">Qty: {{ o.quantity }}</p>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <!-- Display discounted price -->
+                                            <p class="text-muted mb-0 small">${{ o.mobile.discounted_price }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Additional order details and tracking status here -->
+                            <div class="d-flex justify-content-between pt-2">
+                                <p class="fw-bold mb-0">Order Details</p>
+                                <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> ${{ o.mobile.discounted_price }}</p>
+                            </div>
+                            <!-- Other order details like invoice number, date, etc. -->
+                        </div>
+                        <!-- Display total paid and footer here -->
+                        <div class="card-footer border-0 px-4 py-5"
+                            style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                            <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
+                                Total paid: <span class="h2 mb-0 ms-2">${{ o.mobile.discounted_price }}</span>
+                            </h5>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/popper.js" %}"></script>
+    <script src="{% static "js/all.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+</body>
+
+</html>

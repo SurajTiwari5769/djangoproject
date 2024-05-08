@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ecommerce Cart/Wishlist Page Design</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "css/all.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="address.css">
+</head>
+<body style="background-color: #2874f0;">
+
+    <div class="py-3 py-md-4 checkout">
+        <div class="container">
+            <h4>Address</h4>
+            <hr>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="shadow bg-white p-3">
+                        <h4 class="text-primary">
+                            Basic Information
+                        </h4>
+                        <hr>
+
+                        <form id="addressForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label>Full Name</label>
+                                    <input type="text" name="fullname" class="form-control" placeholder="Enter Full Name" />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label>Phone Number</label>
+                                    <input type="number" name="phone" class="form-control" placeholder="Enter Phone Number" />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label>Email Address</label>
+                                    <input type="email" name="email" class="form-control" placeholder="Enter Email Address" />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label>Pin-code (Zip-code)</label>
+                                    <input type="number" name="pincode" class="form-control" placeholder="Enter Pin-code" />
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label>Full Address</label>
+                                    <textarea name="address" class="form-control" rows="2"></textarea>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <button type="submit" class="btn btn-primary">Add Address</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="addedAddresses" class="mt-4">
+                <!-- Existing addresses will be displayed here -->
+                <!-- New addresses will be added dynamically here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/popper.js" %}"></script>
+    <script src="{% static "js/all.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.getElementById("addressForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            // Get form data
+            let formData = new FormData(this);
+            
+            // Create address card
+            let addressCard = document.createElement("div");
+            addressCard.classList.add("card", "mb-3");
+            
+            // Create card body
+            let cardBody = document.createElement("div");
+            cardBody.classList.add("card-body");
+            
+            // Add address details to card body
+            for (const [key, value] of formData.entries()) {
+                let p = document.createElement("p");
+                p.innerHTML = `<strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> ${value}`;
+                cardBody.appendChild(p);
+            }
+            
+            // Append card body to address card
+            addressCard.appendChild(cardBody);
+            
+            // Append address card to addedAddresses container
+            document.getElementById("addedAddresses").appendChild(addressCard);
+            
+            // Clear form fields
+            this.reset();
+        });
+    </script>
+</body>
+</html>

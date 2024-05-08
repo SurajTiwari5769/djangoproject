@@ -1,0 +1,50 @@
+{% load static %}
+<div class="py-3 py-md-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="{% url "productlisting" %}"><h4 class="mb-4">Our Products</h4></a>
+            </div>
+            <div class="col-md-12">
+                <div class="product-container row">
+                    <!-- Display only the latest 3 products -->
+                    <!-- Add this card structure for each product, starting with the latest -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <!-- Product card content goes here -->
+                            <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+                                <img src="{% static "image/smartwatch.jpg" %}" class="w-100" alt="Smartwatch" />
+                                <a href="#!">
+                                    <div class="mask">
+                                        <div class="d-flex justify-content-start align-items-end h-100"></div>
+                                    </div>
+                                    <div class="hover-overlay">
+                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <a href="#" class="text-reset">
+                                    <h5 class="card-title mb-3">Apple Watch Series 6</h5>
+                                </a>
+                                <a href="#" class="text-reset">
+                                    <p>Smartwatches</p>
+                                </a>
+                                <h6 class="mb-3">$399.99</h6>
+                                <!-- Add your additional product information here -->
+                                <p class="card-text">1.78-inch Always-On Retina Display, GPS + Cellular, ECG and Blood Oxygen Monitoring</p>
+                                <a href="#" class="btn btn-primary">Add To Cart</a>
+                                <a href="#" class="btn btn-outline-secondary">View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add "View All Products" button if products exceed 3 -->
+                <!-- Link this button to a new page containing all products -->
+                <div class="text-center mt-4">
+                    <a href="all-products.html" class="btn btn-primary">View All Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

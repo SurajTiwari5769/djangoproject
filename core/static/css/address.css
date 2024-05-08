@@ -1,0 +1,92 @@
+/*----------------------------------------------------- Navbar css ---------------------------------------------------------------------- */
+.main-navbar{
+    border-bottom: 1px solid #ccc;
+  }
+  .main-navbar .top-navbar{
+    background-color: #2874f0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .main-navbar .top-navbar .brand-name{
+    color: #fff;
+  }
+  .main-navbar .top-navbar .nav-link{
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .main-navbar .top-navbar .dropdown-menu{
+    padding: 0px 0px;
+    border-radius: 0px;
+  }
+  .main-navbar .top-navbar .dropdown-menu .dropdown-item{
+    padding: 8px 16px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+  }
+  .main-navbar .top-navbar .dropdown-menu .dropdown-item i{
+    width: 20px;
+    text-align: center;
+    color: #2874f0;
+    font-size: 14px;
+  }
+  .main-navbar .navbar{
+    padding: 0px;
+    background-color: #ddd;
+  }
+  .main-navbar .navbar .nav-item .nav-link{
+    padding: 8px 20px;
+    color: #000;
+    font-size: 15px;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .main-navbar .top-navbar .nav-link{
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+  }
+
+
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+    background-color: #2874f0;
+}
+
+.navbar {
+    z-index: 10000; /* Ensure navbar is above other elements */
+}
+
+#addAddressSidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    z-index: 1000;
+    padding: 20px;
+}
+
+#addAddressSidebar:hover {
+    width: 350px;
+    left: 0; /* Ensure the sidebar is fixed to the left side */
+}
+
+#addedAddresses {
+    padding-left: 180px;
+}
+
+#addAddressSidebar h4,
+#addAddressSidebar h5 {
+    margin-top: 0;
+}
+
+#basicInfoForm {
+    padding: 20px;
+}
